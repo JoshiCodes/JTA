@@ -2,7 +2,9 @@ package de.joshizockt.jta.api.object;
 
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
+import de.joshizockt.jta.api.object.chat.PrivateChat;
 import de.joshizockt.jta.api.requests.send.SendMessageRequest;
+import de.joshizockt.jta.api.rest.RestAction;
 import de.joshizockt.jta.api.util.JsonUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +22,7 @@ public abstract class User {
         return new User() {
 
             @Override
-            JTA getJTA() {
+            public JTA getJTA() {
                 return jta;
             }
 
@@ -54,21 +56,26 @@ public abstract class User {
                 return languageCode;
             }
 
+            @Override
+            public RestAction<PrivateChat> getChat() {
+                return jta.getPrivateChat(id + "");
+            }
+
         };
     }
 
-    abstract JTA getJTA();
+    public abstract JTA getJTA();
 
-    abstract int id();
-    abstract boolean isBot();
-    abstract String firstName();
+    public abstract int id();
+    public abstract boolean isBot();
+    public abstract String firstName();
     @Nullable
-    abstract String lastName();
+    public abstract String lastName();
     @Nullable
-    abstract String username();
+    public abstract String username();
     @Nullable
-    abstract String languageCode();
-
+    public abstract String languageCode();
+    public abstract RestAction<PrivateChat> getChat();
 
     public Message sendMessage(final String message) {
         SendMessageRequest request = new SendMessageRequest(getJTA(), message, id());

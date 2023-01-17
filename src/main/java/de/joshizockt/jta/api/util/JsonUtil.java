@@ -9,6 +9,18 @@ import java.io.InputStream;
 
 public class JsonUtil {
 
+    public static boolean getBoolean(JsonObject object, String key) {
+        return getOrDefaultBoolean(object, key, false);
+    }
+
+    public static boolean getOrDefaultBoolean(JsonObject object, String key, boolean defaultValue) {
+        JsonElement element = object.get(key);
+        if(element == null) {
+            return defaultValue;
+        }
+        return element.getAsBoolean();
+    }
+
     public static String getOrDefaultString(JsonObject o, String key, String def) {
         if(o.has(key)) {
             return o.get(key).getAsString();

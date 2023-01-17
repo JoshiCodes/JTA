@@ -2,6 +2,7 @@ package de.joshizockt.jta.api.object;
 
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
+import de.joshizockt.jta.api.object.chat.GenericChat;
 import de.joshizockt.jta.api.util.JsonUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,8 +15,8 @@ public abstract class Message {
         final int threadId = JsonUtil.getOrDefaultInt(result, "message_thread_id", 0);
         final User sender = User.fromJson(jta, result.get("from").getAsJsonObject());
         final Date date = new Date(result.get("date").getAsLong() * 1000);
-        //final Chat chat = Chat.fromJson(jta, result.get("chat").getAsJsonObject());
-        final Chat chat = null;
+        final int chatId = result.get("chat").getAsJsonObject().get("id").getAsInt();
+        final GenericChat chat = jta.getChat(chatId + "").complete();
         final String text = result.get("text").getAsString();
         return new Message() {
             @Override
@@ -29,12 +30,12 @@ public abstract class Message {
             }
 
             @Override
-            int threadId() {
+            public int threadId() {
                 return 0;
             }
 
             @Override
-            User sender() {
+            public User sender() {
                 return sender;
             }
 
@@ -44,12 +45,12 @@ public abstract class Message {
             }
 
             @Override
-            @Nullable Message originalMessage() {
+            public @Nullable Message originalMessage() {
                 return null;
             }
 
             @Override
-            public Chat chat() {
+            public GenericChat chat() {
                 return chat;
             }
 
@@ -61,18 +62,18 @@ public abstract class Message {
         };
     }
 
-    abstract JTA getJTA();
+    public abstract JTA getJTA();
 
-    abstract int id();
-    abstract int threadId();
+    public abstract int id();
+    public abstract int threadId();
 
-    abstract User sender();
-    abstract Chat chat();
-    abstract Date date();
+    public abstract User sender();
+    public abstract GenericChat chat();
+    public abstract Date date();
 
-    abstract String text();
+    public abstract String text();
 
     @Nullable
-    abstract Message originalMessage();
+    public abstract Message originalMessage();
 
 }

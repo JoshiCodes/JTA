@@ -41,7 +41,6 @@ public class RequestHandler {
                     dataObject = JsonUtil.addObject(dataObject, key, data.get(key));
                 }
                 String dataString = dataObject.toString();
-                System.out.println(dataString);
                 //connection.setRequestProperty("Content-Length", String.valueOf(dataString.length()));
 
                 try(OutputStream os = connection.getOutputStream()) {
