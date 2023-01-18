@@ -1,28 +1,19 @@
-package de.joshizockt.jta.api.requests.send;
+package de.joshizockt.jta.api.requests;
 
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.object.Message;
-import de.joshizockt.jta.api.requests.Request;
 
-public class SendMessageRequest extends Request<Message> {
+public class EditMessageTextRequest extends Request<Message> {
 
     private final JTA jta;
 
-    public SendMessageRequest(JTA jta, String content) {
-        super("sendMessage", RequestMethod.POST);
+    public EditMessageTextRequest(JTA jta, Message message, String content) {
+        super("editMessageText", RequestMethod.POST);
         this.jta = jta;
+        addData("chat_id", message.getChat().complete().getId());
+        addData("message_id", message.getId());
         addData("text", content);
-    }
-
-    public SendMessageRequest(JTA jta, String content, String chatId) {
-        this(jta, content);
-        addData("chat_id", chatId);
-    }
-
-    public SendMessageRequest(JTA jta, String content, int chatId) {
-        this(jta, content);
-        addData("chat_id", chatId);
     }
 
     @Override

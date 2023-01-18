@@ -24,17 +24,17 @@ public abstract class PrivateChat extends GenericChat {
             }
 
             @Override
-            public String firstName() {
+            public String getFirstName() {
                 return firstName;
             }
 
             @Override
-            public String lastName() {
+            public String getLastName() {
                 return lastName;
             }
 
             @Override
-            public String username() {
+            public String getUsername() {
                 return username;
             }
 
@@ -44,7 +44,7 @@ public abstract class PrivateChat extends GenericChat {
             }
 
             @Override
-            public String bio() {
+            public String getBio() {
                 return bio;
             }
 
@@ -59,17 +59,17 @@ public abstract class PrivateChat extends GenericChat {
             }
 
             @Override
-            public String title() {
+            public String getTitle() {
                 return title;
             }
         };
     }
 
-    public abstract String firstName();
-    public abstract String lastName();
-    public abstract String username();
+    public abstract String getFirstName();
+    public abstract String getLastName();
+    public abstract String getUsername();
     public abstract String emojiStatusCustomEmojiId();
-    public abstract String bio();
+    public abstract String getBio();
 
     /**
      * Only of use when getting the Chat from its own Request

@@ -3,6 +3,8 @@ package de.joshizockt.jta.api.object;
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.object.chat.GenericChat;
+import de.joshizockt.jta.api.requests.EditMessageTextRequest;
+import de.joshizockt.jta.api.rest.RestAction;
 import de.joshizockt.jta.api.util.JsonUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,7 +18,7 @@ public abstract class Message {
         final User sender = User.fromJson(jta, result.get("from").getAsJsonObject());
         final Date date = new Date(result.get("date").getAsLong() * 1000);
         final int chatId = result.get("chat").getAsJsonObject().get("id").getAsInt();
-        final GenericChat chat = jta.getChat(chatId + "").complete();
+        final RestAction<GenericChat> chat = jta.getChat(chatId + "");
         final String text = result.get("text").getAsString();
         return new Message() {
             @Override
@@ -25,7 +27,7 @@ public abstract class Message {
             }
 
             @Override
-            public int id() {
+            public int getId() {
                 return messageId;
             }
 
@@ -35,7 +37,7 @@ public abstract class Message {
             }
 
             @Override
-            public User sender() {
+            public User getSender() {
                 return sender;
             }
 
@@ -50,12 +52,12 @@ public abstract class Message {
             }
 
             @Override
-            public GenericChat chat() {
+            public RestAction<GenericChat> getChat() {
                 return chat;
             }
 
             @Override
-            public String text() {
+            public String getContent() {
                 return text;
             }
 
@@ -64,16 +66,22 @@ public abstract class Message {
 
     public abstract JTA getJTA();
 
-    public abstract int id();
+    public abstract int getId();
     public abstract int threadId();
 
-    public abstract User sender();
-    public abstract GenericChat chat();
+    public abstract User getSender();
+    public abstract RestAction<GenericChat> getChat();
     public abstract Date date();
 
-    public abstract String text();
+    public abstract String getContent();
 
     @Nullable
     public abstract Message originalMessage();
+
+    public RestAction<Message> editText(String content) {
+        return new RestAction<>((v) ->
+                getJTA().getRequestHandler().execute(new EditMessageTextRequest(getJTA(), this, content))
+        );
+    }
 
 }

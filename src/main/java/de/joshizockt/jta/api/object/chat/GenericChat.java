@@ -32,7 +32,7 @@ public abstract class GenericChat {
                 }
 
                 @Override
-                public @Nullable String title() {
+                public @Nullable String getTitle() {
                     return title;
                 }
             };
@@ -43,7 +43,7 @@ public abstract class GenericChat {
 
     public abstract int getId();
     @Nullable
-    public abstract String title();
+    public abstract String getTitle();
 
 
     public PrivateChat getAsPrivateChat() {

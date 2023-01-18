@@ -8,8 +8,6 @@ import de.joshizockt.jta.api.rest.RestAction;
 import de.joshizockt.jta.api.util.JsonUtil;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.CompletableFuture;
-
 public abstract class User {
 
     public static User fromJson(JTA jta, JsonObject jsonObject) {
@@ -27,7 +25,7 @@ public abstract class User {
             }
 
             @Override
-            public int id() {
+            public int getId() {
                 return id;
             }
 
@@ -42,12 +40,12 @@ public abstract class User {
             }
 
             @Override
-            public @Nullable String lastName() {
+            public @Nullable String getLastName() {
                 return lastName;
             }
 
             @Override
-            public @Nullable String username() {
+            public @Nullable String getUsername() {
                 return username;
             }
 
@@ -66,19 +64,19 @@ public abstract class User {
 
     public abstract JTA getJTA();
 
-    public abstract int id();
+    public abstract int getId();
     public abstract boolean isBot();
     public abstract String firstName();
     @Nullable
-    public abstract String lastName();
+    public abstract String getLastName();
     @Nullable
-    public abstract String username();
+    public abstract String getUsername();
     @Nullable
     public abstract String languageCode();
     public abstract RestAction<PrivateChat> getChat();
 
     public Message sendMessage(final String message) {
-        SendMessageRequest request = new SendMessageRequest(getJTA(), message, id());
+        SendMessageRequest request = new SendMessageRequest(getJTA(), message, getId());
         return getJTA().getRequestHandler().execute(request);
     }
 
