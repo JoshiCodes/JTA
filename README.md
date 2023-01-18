@@ -1,3 +1,5 @@
+![Github Release](https://img.shields.io/github/v/release/JoshiCodes/JTA?include_prereleases)
+
 # JTA (Java Telegram API)
 ###### (Name inspired from the Discord JDA)
 
@@ -8,6 +10,17 @@ If you need a full Telegram API for Java, have a look at [this](https://github.c
 
 ## This API is not finished and may not be finished in the future.
 
+## Download
+You can download the latest Version as a Jar [here](https://github.com/JoshiCodes/JTA/releases).
+You can also import it as a Maven Dependency:
+(Replace VERSION with the newest Version)
+```xml
+<dependency>
+    <groupId>de.joshizockt</groupId>
+    <artifactId>jta</artifactId>
+    <version>VERSION</version>
+</dependency>
+```
 
 ## Usage
 
