@@ -1,5 +1,6 @@
 package de.joshizockt.jta.api;
 
+import de.joshizockt.jta.api.event.EventManager;
 import de.joshizockt.jta.api.exception.IllegalChatTypeException;
 import de.joshizockt.jta.api.object.User;
 import de.joshizockt.jta.api.object.chat.GenericChat;
@@ -11,16 +12,21 @@ import de.joshizockt.jta.api.rest.RestAction;
 
 public abstract class JTA {
 
-    private final RequestHandler requestHandler;
+    JTA() {  }
 
-    JTA(RequestHandler requestHandler) {
-        this.requestHandler = requestHandler;
-    }
+    /**
+     * Returns the RequestHandler of this JTA Instance.
+     * The RequestHandler is used to fire and handle requests
+     * @return RequestHandler instance of this JTA instance
+     */
+    public abstract RequestHandler getRequestHandler();
 
-    public RequestHandler getRequestHandler() {
-        return requestHandler;
-    }
-
+    /**
+     * Returns the EventManager of this JTA instance
+     * The EventManager is used to fire and receive Events
+     * @return EventManager of this JTA instance
+     */
+    public abstract EventManager getEventManager();
 
     /**
      * Get the BotUser
@@ -28,7 +34,7 @@ public abstract class JTA {
      * @return the User Instance of the Bot
      */
     public RestAction<User> getSelfUser() {
-        return new RestAction<>((v) -> requestHandler.execute(new GetSelfRequest(this)));
+        return new RestAction<>((v) -> getRequestHandler().execute(new GetSelfRequest(this)));
     }
 
     /**
@@ -48,7 +54,7 @@ public abstract class JTA {
      * @return the Chat Instance
      */
     public RestAction<GenericChat> getChat(String id) {
-        return new RestAction<>((v) -> requestHandler.execute(new GetChatRequest(this, id)));
+        return new RestAction<>((v) -> getRequestHandler().execute(new GetChatRequest(this, id)));
     }
 
     /**
@@ -70,7 +76,7 @@ public abstract class JTA {
      * @throws IllegalChatTypeException if the Chat is not a PrivateChat
      */
     public RestAction<PrivateChat> getPrivateChat(String id) {
-        return new RestAction<>((v) -> requestHandler.execute(new GetChatRequest(this, id)).getAsPrivateChat());
+        return new RestAction<>((v) -> getRequestHandler().execute(new GetChatRequest(this, id)).getAsPrivateChat());
     }
 
 }
