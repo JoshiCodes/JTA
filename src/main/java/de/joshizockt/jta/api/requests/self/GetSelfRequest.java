@@ -17,12 +17,6 @@ public class GetSelfRequest extends Request<User> {
     @Override
     public User parse(JsonObject jsonObject) {
         // Response should be a User Object
-        if(jsonObject == null || !jsonObject.get("ok").getAsBoolean()) {
-            throw new NullPointerException("Response is null or api returned an error");
-        }
-        if(!jsonObject.has("result")) {
-            throw new NullPointerException("The response does not contain a result object");
-        }
         return User.fromJson(jta, jsonObject.get("result").getAsJsonObject());
     }
 
