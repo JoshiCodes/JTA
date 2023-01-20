@@ -2,10 +2,16 @@ package de.joshizockt.jta.api.object.chat;
 
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
+import de.joshizockt.jta.api.exception.IllegalChatTypeException;
+import de.joshizockt.jta.api.object.MessageReceiver;
 import de.joshizockt.jta.api.util.JsonUtil;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class GenericChat {
+public abstract class GenericChat extends MessageReceiver {
+
+    GenericChat(JTA jta, long id) {
+        super(jta, id);
+    }
 
     public static GenericChat fromJson(JTA jta, JsonObject object) {
         //System.out.println(object.toString());
@@ -19,7 +25,7 @@ public abstract class GenericChat {
         } else if(type.equalsIgnoreCase("channel")) {
             return ChannelChat.fromJson(jta, object);
         } else {
-            return new GenericChat() {
+            return new GenericChat(jta, id) {
 
                 @Override
                 public JTA getJTA() {
@@ -46,11 +52,12 @@ public abstract class GenericChat {
     public abstract String getTitle();
 
 
+
     public PrivateChat getAsPrivateChat() {
         if(this instanceof PrivateChat) {
             return (PrivateChat) this;
         } else {
-            throw new IllegalStateException("This chat is not a private chat!");
+            throw new IllegalChatTypeException(this, "private");
         }
     }
 

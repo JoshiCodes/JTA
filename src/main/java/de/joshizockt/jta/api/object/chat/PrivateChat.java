@@ -6,6 +6,10 @@ import de.joshizockt.jta.api.util.JsonUtil;
 
 public abstract class PrivateChat extends GenericChat {
 
+    PrivateChat(JTA jta, long id) {
+        super(jta, id);
+    }
+
     public static PrivateChat fromJson(JTA jta, JsonObject object) {
         final int id = object.get("id").getAsInt();
         final String title = JsonUtil.getOrDefaultString(object, "title", null);
@@ -16,7 +20,7 @@ public abstract class PrivateChat extends GenericChat {
         final String bio = JsonUtil.getOrDefaultString(object, "bio", null);
         final boolean privateForwards = JsonUtil.getBoolean(object, "has_private_forwards");
 
-        return new PrivateChat() {
+        return new PrivateChat(jta, id) {
 
             @Override
             public JTA getJTA() {

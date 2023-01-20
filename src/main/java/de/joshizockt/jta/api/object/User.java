@@ -3,12 +3,15 @@ package de.joshizockt.jta.api.object;
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.object.chat.PrivateChat;
-import de.joshizockt.jta.api.requests.send.SendMessageRequest;
 import de.joshizockt.jta.api.rest.RestAction;
 import de.joshizockt.jta.api.util.JsonUtil;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class User {
+public abstract class User extends MessageReceiver {
+
+    User(JTA jta, String id) {
+        super(jta, id);
+    }
 
     public static User fromJson(JTA jta, JsonObject jsonObject) {
         final int id = jsonObject.get("id").getAsInt();
@@ -17,7 +20,7 @@ public abstract class User {
         final String lastName = JsonUtil.getOrDefaultString(jsonObject, "last_name", null);
         final String username = JsonUtil.getOrDefaultString(jsonObject, "username", null);
         final String languageCode = JsonUtil.getOrDefaultString(jsonObject, "language_code", null);
-        return new User() {
+        return new User(jta, id + "") {
 
             @Override
             public JTA getJTA() {
@@ -74,10 +77,5 @@ public abstract class User {
     @Nullable
     public abstract String languageCode();
     public abstract RestAction<PrivateChat> getChat();
-
-    public Message sendMessage(final String message) {
-        SendMessageRequest request = new SendMessageRequest(getJTA(), message, getId());
-        return getJTA().getRequestHandler().execute(request);
-    }
 
 }
