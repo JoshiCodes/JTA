@@ -10,9 +10,29 @@ import de.joshizockt.jta.api.requests.RequestHandler;
 import de.joshizockt.jta.api.requests.self.GetSelfRequest;
 import de.joshizockt.jta.api.rest.RestAction;
 
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
+
 public abstract class JTA {
 
-    JTA() {  }
+    private final Logger logger;
+
+    JTA() {
+        this.logger = Logger.getLogger("JTA");
+        Handler handler = new ConsoleHandler();
+        handler.setFormatter(new JTAFormatter());
+        this.logger.addHandler(handler);
+        this.logger.setUseParentHandlers(false);
+    }
+
+    /**
+     * Gets the Logger used by this JTA Instance
+     * @return Logger of this JTA Instance
+     */
+    public Logger getLogger() {
+        return logger;
+    }
 
     /**
      * Returns the RequestHandler of this JTA Instance.
