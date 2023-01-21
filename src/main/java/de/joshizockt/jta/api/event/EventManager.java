@@ -36,9 +36,8 @@ public class EventManager {
     }
 
     private void checkForUpdates() {
-        GetUpdatesRequest request = new GetUpdatesRequest();
+        GetUpdatesRequest request = new GetUpdatesRequest(jta);
         request.offset(offset);
-        System.out.println("Offset: " + offset);
         List<IUpdate<?>> updates = jta.getRequestHandler().execute(request);
         if(updates == null || updates.isEmpty()) {
             sleep();
@@ -78,6 +77,11 @@ public class EventManager {
         }
     }
 
+    /**
+     * Registers a new EventListener to listen for updates
+     * Can be called multiple times
+     * @param listener the listener to register, must be an instance of EventListener
+     */
     public void registerListener(EventListener listener) {
         listeners.add(listener);
     }
