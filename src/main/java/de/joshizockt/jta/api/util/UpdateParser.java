@@ -1,8 +1,10 @@
 package de.joshizockt.jta.api.util;
 
 import com.google.gson.JsonObject;
-import de.joshizockt.jta.api.event.chat.ChatMessageReceivedEvent;
+import de.joshizockt.jta.api.JTA;
+import de.joshizockt.jta.api.event.chat.MessageReceivedEvent;
 import de.joshizockt.jta.api.object.IUpdate;
+import de.joshizockt.jta.api.object.Message;
 
 public class UpdateParser {
 
@@ -12,19 +14,20 @@ public class UpdateParser {
         this.json = json;
     }
 
-    public IUpdate<?> parse() {
+    public IUpdate<?> parse(JTA jta) {
         final int id = JsonUtil.getOrDefaultInt(json, "update_id", -1);
         if(json.has("message")) {
+            Message message = Message.fromJson(jta, json.get("message").getAsJsonObject());
             // MessageReceivedEvent
-            ChatMessageReceivedEvent event = new ChatMessageReceivedEvent();
-            return new IUpdate<ChatMessageReceivedEvent>() {
+            MessageReceivedEvent event = new MessageReceivedEvent(jta, message, message.getSender(), message.getChat().complete());
+            return new IUpdate<MessageReceivedEvent>() {
                 @Override
                 public int getId() {
                     return id;
                 }
 
                 @Override
-                public ChatMessageReceivedEvent getUpdate() {
+                public MessageReceivedEvent getUpdate() {
                     return event;
                 }
             };
