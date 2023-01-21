@@ -74,6 +74,7 @@ Or you can just call the `#queue()` Method, which will send the Message and not 
 
 If you really want, you can call Requests Instances directly with the `JTA` Instance.
 This is done automatically by the `RestAction` Objects, but you can do it yourself if you want.
+This is not recommended for the most part and some Requests may require additional Arguments.
 
 ```java
     
