@@ -1,4 +1,4 @@
-package de.joshizockt.jta.api.event.chat;
+package de.joshizockt.jta.api.event.chat.message;
 
 import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.event.Event;

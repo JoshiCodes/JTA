@@ -2,7 +2,8 @@ package de.joshizockt.jta.api.util;
 
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
-import de.joshizockt.jta.api.event.chat.MessageReceivedEvent;
+import de.joshizockt.jta.api.event.chat.message.MessageEditEvent;
+import de.joshizockt.jta.api.event.chat.message.MessageReceivedEvent;
 import de.joshizockt.jta.api.object.IUpdate;
 import de.joshizockt.jta.api.object.Message;
 
@@ -28,6 +29,21 @@ public class UpdateParser {
 
                 @Override
                 public MessageReceivedEvent getUpdate() {
+                    return event;
+                }
+            };
+        } else if (json.has("edited_message")) {
+            Message edited = Message.fromJson(jta, json.get("edited_message").getAsJsonObject());
+            // MessageEditedEvent
+            MessageEditEvent event = new MessageEditEvent(jta, edited, edited.getSender());
+            return new IUpdate<MessageEditEvent>() {
+                @Override
+                public int getId() {
+                    return id;
+                }
+
+                @Override
+                public MessageEditEvent getUpdate() {
                     return event;
                 }
             };
