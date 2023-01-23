@@ -25,6 +25,18 @@ public class SendMessageRequest extends Request<Message> {
         addData("chat_id", chatId);
     }
 
+    public SendMessageRequest(JTA jta, String content, int chatId, int replyToMessageId) {
+        this(jta, content);
+        addData("chat_id", chatId);
+        addData("reply_to_message_id", replyToMessageId);
+    }
+
+    public SendMessageRequest(JTA jta, String content, String chatId, int replyToMessageId) {
+        this(jta, content);
+        addData("chat_id", chatId);
+        addData("reply_to_message_id", replyToMessageId);
+    }
+
     @Override
     public Message parse(JsonObject jsonObject) {
         // Response should be a Message Object
