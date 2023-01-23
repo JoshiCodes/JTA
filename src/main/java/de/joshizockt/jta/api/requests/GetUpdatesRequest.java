@@ -7,6 +7,7 @@ import de.joshizockt.jta.api.util.UpdateParser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class GetUpdatesRequest extends Request<List<IUpdate<?>>> {
 
@@ -47,6 +48,8 @@ public class GetUpdatesRequest extends Request<List<IUpdate<?>>> {
             IUpdate<?> update = parser.parse(jta);
             if(update != null) {
                 list.add(update);
+            } else {
+                jta.getLogger().log(Level.SEVERE, "Could not parse Update: " + json.toString());
             }
         }
         return list;

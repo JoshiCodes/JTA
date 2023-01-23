@@ -5,16 +5,17 @@ import de.joshizockt.jta.api.event.Event;
 import de.joshizockt.jta.api.object.Message;
 import de.joshizockt.jta.api.object.User;
 import de.joshizockt.jta.api.object.chat.GenericChat;
+import de.joshizockt.jta.api.rest.RestAction;
 
 public class MessageReceivedEvent implements Event {
 
     private final JTA jta;
 
     private final User sender;
-    private final GenericChat chat;
+    private final RestAction<GenericChat> chat;
     private final Message message;
 
-    public MessageReceivedEvent(JTA jta, Message message, User sender, GenericChat chat) {
+    public MessageReceivedEvent(JTA jta, Message message, User sender, RestAction<GenericChat> chat) {
         this.jta = jta;
         this.message = message;
         this.sender = sender;
@@ -39,7 +40,7 @@ public class MessageReceivedEvent implements Event {
      * The Chat can be of different Types
      * @return the Chat the Message was sent in, is the same as {@link #getMessage()}.getChat()
      */
-    public GenericChat getChat() {
+    public RestAction<GenericChat> getChat() {
         return chat;
     }
 

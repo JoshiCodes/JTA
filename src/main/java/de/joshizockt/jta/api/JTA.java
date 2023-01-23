@@ -5,7 +5,7 @@ import de.joshizockt.jta.api.exception.IllegalChatTypeException;
 import de.joshizockt.jta.api.object.User;
 import de.joshizockt.jta.api.object.chat.GenericChat;
 import de.joshizockt.jta.api.object.chat.PrivateChat;
-import de.joshizockt.jta.api.requests.GetChatRequest;
+import de.joshizockt.jta.api.requests.chat.GetChatRequest;
 import de.joshizockt.jta.api.requests.RequestHandler;
 import de.joshizockt.jta.api.requests.self.GetSelfRequest;
 import de.joshizockt.jta.api.rest.RestAction;
@@ -74,7 +74,13 @@ public abstract class JTA {
      * @return the Chat Instance
      */
     public RestAction<GenericChat> getChat(String id) {
-        return new RestAction<>((v) -> getRequestHandler().execute(new GetChatRequest(this, id)));
+        return new RestAction<>((v) -> {
+            GenericChat chat = getRequestHandler().execute(new GetChatRequest(this, id));
+            if(chat == null) {
+                throw new NullPointerException("Cannot get Chat!");
+            }
+            return chat;
+        });
     }
 
     /**

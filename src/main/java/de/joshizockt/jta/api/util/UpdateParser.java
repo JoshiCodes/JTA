@@ -19,8 +19,9 @@ public class UpdateParser {
         final int id = JsonUtil.getOrDefaultInt(json, "update_id", -1);
         if(json.has("message")) {
             Message message = Message.fromJson(jta, json.get("message").getAsJsonObject());
+            if(message == null) return null;
             // MessageReceivedEvent
-            MessageReceivedEvent event = new MessageReceivedEvent(jta, message, message.getSender(), message.getChat().complete());
+            MessageReceivedEvent event = new MessageReceivedEvent(jta, message, message.getSender(), message.getChat());
             return new IUpdate<MessageReceivedEvent>() {
                 @Override
                 public int getId() {
