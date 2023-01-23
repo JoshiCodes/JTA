@@ -34,7 +34,7 @@ To use the API in any way, you need to create a new `JTA` Instance. You do this 
 After that you can use the `JTA` Instance to do more stuff with the API.
 
 Currently, the JTA Class supports the following Methods:
-- `JTA#getChat(String id)`
+- `JTA#getChat(long id)`
 - `JTA#getPrivateChat(long id)`
 - `JTA#getSelfUser()`
 
@@ -42,7 +42,7 @@ These Methods return a `RestAction` Object, which you can use to get the Result 
 To get the Result, you need to call the `RestAction#complete()` Method.
 
 ```java
-    GenericChat chat = jta.getChat("123456789").complete();
+    GenericChat chat = jta.getChat(123456789).complete();
 ```
 
 The `User` and `Chat` Objects returned by the API, can be used to write a Message to the Chat.
@@ -91,3 +91,33 @@ This is not recommended for the most part and some Requests may require addition
     User self = jta.getSelfUser().complete();    
 
 ```
+
+## Listening to Events
+If your Bot receives any Updates, an Event is fired. You can listen to these Events with the `EventManager#registerListener(EventListener)` Method.
+
+```java
+    jta.getEventManager.getEventManager(new YourEventListener());
+```
+
+In this EventListener you can listen to any Event you want. You can do this by creating a new Method with its Event as argument and using the `@EventHandler` Annotation.
+
+```java
+    public class YourEventListener implements EventListener {
+    
+        @EventHandler
+        public void onMessage(MessageReceivedEvent event) {
+            // Do something with the MessageEvent
+            // For example, reply to the Message:
+            event.getMessage().reply("Hello World!").queue();
+        }
+    
+    }
+```
+The Name of the Method does not matter.
+
+At the moment, the following Events are supported:
+
+- `MessageReceivedEvent`
+- `MessageEditedEvent`
+
+It is planned to add most of the Telegram Updates as Events.
