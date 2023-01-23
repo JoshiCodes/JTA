@@ -71,8 +71,10 @@ public abstract class JTA {
      * Get a Chat by ID
      * Returns a Chat Instance with any type as GenericChat
      * @param id the ID of the Chat
+     * @deprecated use {@link #getChat(long)} instead, as String Ids are not used.
      * @return the Chat Instance
      */
+    @Deprecated(forRemoval = true)
     public RestAction<GenericChat> getChat(String id) {
         return new RestAction<>((v) -> {
             GenericChat chat = getRequestHandler().execute(new GetChatRequest(this, id));
@@ -98,9 +100,11 @@ public abstract class JTA {
      * Get a PrivateChat by ID
      * Returns a Chat Instance with the type PrivateChat
      * @param id the ID of the Chat
+     * @deprecated use {@link #getPrivateChat(long)} instead, as String Ids are not used.
      * @return the PrivateChat Instance
      * @throws IllegalChatTypeException if the Chat is not a PrivateChat
      */
+    @Deprecated(forRemoval = true)
     public RestAction<PrivateChat> getPrivateChat(String id) {
         return new RestAction<>((v) -> getRequestHandler().execute(new GetChatRequest(this, id)).getAsPrivateChat());
     }
