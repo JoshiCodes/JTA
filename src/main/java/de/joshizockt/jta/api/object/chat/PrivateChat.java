@@ -2,11 +2,13 @@ package de.joshizockt.jta.api.object.chat;
 
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
+import de.joshizockt.jta.api.exception.IllegalChatTypeException;
+import de.joshizockt.jta.api.rest.RestAction;
 import de.joshizockt.jta.api.util.JsonUtil;
 
 public abstract class PrivateChat extends GenericChat {
 
-    PrivateChat(JTA jta, long id) {
+    PrivateChat(JTA jta, int id) {
         super(jta, id);
     }
 
@@ -74,6 +76,13 @@ public abstract class PrivateChat extends GenericChat {
     public abstract String getUsername();
     public abstract String emojiStatusCustomEmojiId();
     public abstract String getBio();
+
+    @Override
+    public RestAction<Boolean> leave() {
+        return new RestAction<>((v) -> {
+            throw new IllegalChatTypeException("Cannot leave a Private Chat!");
+        });
+    }
 
     /**
      * Only of use when getting the Chat from its own Request

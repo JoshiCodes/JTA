@@ -64,4 +64,10 @@ public class JsonUtil {
         return new Gson().fromJson(new BufferedReader(new java.io.InputStreamReader(inputStream)), JsonObject.class);
     }
 
+    public static JsonObject getOrDefaultObject(JsonObject result, String key, JsonObject def) {
+        if(result.has(key)) {
+            return result.get(key).getAsJsonObject();
+        }
+        return def;
+    }
 }

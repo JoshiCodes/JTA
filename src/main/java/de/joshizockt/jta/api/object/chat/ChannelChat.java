@@ -5,7 +5,7 @@ import de.joshizockt.jta.api.JTA;
 
 public abstract class ChannelChat extends GenericChat {
 
-    ChannelChat(JTA jta, long id) {
+    ChannelChat(JTA jta, int id) {
         super(jta, id);
     }
 

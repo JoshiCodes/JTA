@@ -9,18 +9,19 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class User extends MessageReceiver {
 
-    User(JTA jta, String id) {
+    User(JTA jta, int id) {
         super(jta, id);
     }
 
     public static User fromJson(JTA jta, JsonObject jsonObject) {
+        if(jsonObject == null) return null;
         final int id = jsonObject.get("id").getAsInt();
         final boolean isBot = jsonObject.get("is_bot").getAsBoolean();
         final String firstName = jsonObject.get("first_name").getAsString();
         final String lastName = JsonUtil.getOrDefaultString(jsonObject, "last_name", null);
         final String username = JsonUtil.getOrDefaultString(jsonObject, "username", null);
         final String languageCode = JsonUtil.getOrDefaultString(jsonObject, "language_code", null);
-        return new User(jta, id + "") {
+        return new User(jta, id) {
 
             @Override
             public JTA getJTA() {

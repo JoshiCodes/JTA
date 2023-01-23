@@ -1,9 +1,9 @@
-package de.joshizockt.jta.api.requests;
+package de.joshizockt.jta.api.requests.chat;
 
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
-import de.joshizockt.jta.api.object.User;
 import de.joshizockt.jta.api.object.chat.GenericChat;
+import de.joshizockt.jta.api.requests.Request;
 
 public class GetChatRequest extends Request<GenericChat> {
 

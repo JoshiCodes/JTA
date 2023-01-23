@@ -4,12 +4,14 @@ import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.exception.IllegalChatTypeException;
 import de.joshizockt.jta.api.object.MessageReceiver;
+import de.joshizockt.jta.api.requests.chat.LeaveChatRequest;
+import de.joshizockt.jta.api.rest.RestAction;
 import de.joshizockt.jta.api.util.JsonUtil;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class GenericChat extends MessageReceiver {
 
-    GenericChat(JTA jta, long id) {
+    GenericChat(JTA jta, int id) {
         super(jta, id);
     }
 
@@ -51,7 +53,9 @@ public abstract class GenericChat extends MessageReceiver {
     @Nullable
     public abstract String getTitle();
 
-
+    public RestAction<Boolean> leave() {
+        return new RestAction<>((v) -> getJTA().getRequestHandler().execute(new LeaveChatRequest(getId())));
+    }
 
     public PrivateChat getAsPrivateChat() {
         if(this instanceof PrivateChat) {

@@ -25,16 +25,24 @@ public class SendMessageRequest extends Request<Message> {
         addData("chat_id", chatId);
     }
 
-    public SendMessageRequest(JTA jta, String content, int chatId, int replyToMessageId) {
-        this(jta, content);
-        addData("chat_id", chatId);
-        addData("reply_to_message_id", replyToMessageId);
+    public SendMessageRequest protectContent(boolean protectContent) {
+        addData("protect_content", protectContent);
+        return this;
     }
 
-    public SendMessageRequest(JTA jta, String content, String chatId, int replyToMessageId) {
-        this(jta, content);
-        addData("chat_id", chatId);
+    public SendMessageRequest disableWebPagePreview(boolean disablePreview) {
+        addData("disable_web_page_preview", disablePreview);
+        return this;
+    }
+
+    public SendMessageRequest disableNotification(boolean disableNotification) {
+        addData("disable_notification", disableNotification);
+        return this;
+    }
+
+    public SendMessageRequest replyToMessageId(int replyToMessageId) {
         addData("reply_to_message_id", replyToMessageId);
+        return this;
     }
 
     @Override

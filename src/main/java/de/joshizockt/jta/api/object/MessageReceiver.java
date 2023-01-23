@@ -4,6 +4,7 @@ import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.object.Message;
 import de.joshizockt.jta.api.requests.send.SendMessageRequest;
 import de.joshizockt.jta.api.rest.RestAction;
+import de.joshizockt.jta.api.rest.SendMessageAction;
 
 /**
  * Interface used for all objects that can be messaged
@@ -11,21 +12,15 @@ import de.joshizockt.jta.api.rest.RestAction;
 public abstract class MessageReceiver {
 
     private final JTA jta;
-    private final String id;
+    private final int id;
 
-    public MessageReceiver(JTA jta, long id) {
-        this.jta = jta;
-        this.id = id + "";
-    }
-
-    public MessageReceiver(JTA jta, String id) {
+    public MessageReceiver(JTA jta, int id) {
         this.jta = jta;
         this.id = id;
     }
 
-    public RestAction<Message> sendMessage(final String message) {
-        SendMessageRequest request = new SendMessageRequest(jta, message, id);
-        return new RestAction<>(v -> jta.getRequestHandler().execute(request));
+    public SendMessageAction sendMessage(final String message) {
+        return new SendMessageAction(jta, id, message);
     }
 
 }

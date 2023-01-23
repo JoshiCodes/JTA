@@ -4,8 +4,12 @@ import de.joshizockt.jta.api.object.chat.GenericChat;
 
 public class IllegalChatTypeException extends RuntimeException {
 
+    public IllegalChatTypeException(String msg) {
+        super(msg);
+    }
+
     public IllegalChatTypeException(GenericChat chat, String type) {
-        super("Chat " + chat.getId() + " is not a " + type + " chat. [" + chat.getClass().getSimpleName() + "]");
+        this("Chat " + chat.getId() + " is not a " + type + " chat. [" + chat.getClass().getSimpleName() + "]");
     }
 
 }

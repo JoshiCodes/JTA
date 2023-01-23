@@ -6,6 +6,7 @@ import de.joshizockt.jta.api.object.chat.GenericChat;
 import de.joshizockt.jta.api.requests.EditMessageTextRequest;
 import de.joshizockt.jta.api.requests.send.SendMessageRequest;
 import de.joshizockt.jta.api.rest.RestAction;
+import de.joshizockt.jta.api.rest.SendMessageAction;
 import de.joshizockt.jta.api.util.JsonUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -87,10 +88,8 @@ public abstract class Message {
         );
     }
 
-    public RestAction<Message> reply(String content) {
-        return new RestAction<>((v) ->
-                getJTA().getRequestHandler().execute(new SendMessageRequest(getJTA(), content, getChat().complete().getId(), getId()))
-        );
+    public SendMessageAction reply(String content) {
+        return new SendMessageAction(getJTA(), getChat().complete().getId(), content).replyToMessageId(getId());
     }
 
 }
