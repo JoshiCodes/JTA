@@ -6,7 +6,7 @@
 
     <groupId>de.joshizockt</groupId>
     <artifactId>jta</artifactId>
-    <version>0.1-alpha.6</version>
+    <version>0.1-alpha.7</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
