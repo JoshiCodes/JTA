@@ -1,6 +1,7 @@
 package de.joshizockt.jta.api.util;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -69,5 +70,25 @@ public class JsonUtil {
             return result.get(key).getAsJsonObject();
         }
         return def;
+    }
+
+    public static String[] getAsStringArray(JsonArray options) {
+        String[] strings = new String[options.size()];
+        for(int i = 0; i < options.size(); i++) {
+            strings[i] = options.get(i).getAsString();
+        }
+        return strings;
+    }
+
+    public static int[] getOrDefaultIntArray(JsonObject json, String optionIds, Object o) {
+        if(json.has(optionIds)) {
+            JsonArray array = json.get(optionIds).getAsJsonArray();
+            int[] ints = new int[array.size()];
+            for(int i = 0; i < array.size(); i++) {
+                ints[i] = array.get(i).getAsInt();
+            }
+            return ints;
+        }
+        return new int[0];
     }
 }

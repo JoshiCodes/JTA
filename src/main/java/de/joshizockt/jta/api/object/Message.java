@@ -21,7 +21,7 @@ public abstract class Message {
         final User sender = User.fromJson(jta, JsonUtil.getOrDefaultObject(result, "from", null));
         final Date date = new Date(result.get("date").getAsLong() * 1000);
         final int chatId = result.get("chat").getAsJsonObject().get("id").getAsInt();
-        final RestAction<GenericChat> chat = jta.getChat(chatId + "");
+        final RestAction<GenericChat> chat = jta.getChat(chatId);
         final String text = JsonUtil.getOrDefaultString(result, "text", null);
         if(text == null) return null;
         return new Message() {
