@@ -5,8 +5,10 @@ import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.event.chat.message.MessageEditEvent;
 import de.joshizockt.jta.api.event.chat.message.MessageReceivedEvent;
 import de.joshizockt.jta.api.event.poll.PollAnswerEvent;
+import de.joshizockt.jta.api.event.poll.PollStateChangeEvent;
 import de.joshizockt.jta.api.object.IUpdate;
 import de.joshizockt.jta.api.object.Message;
+import de.joshizockt.jta.api.object.Poll;
 import de.joshizockt.jta.api.object.User;
 
 public class UpdateParser {
@@ -51,7 +53,21 @@ public class UpdateParser {
                 }
             };
         } else if(json.has("poll")) {
-            // PollEvent
+            // PollStateChangeEvent
+            JsonObject object = json.get("poll").getAsJsonObject();
+            Poll poll = Poll.fromJson(jta, object);
+            return new IUpdate<PollStateChangeEvent>() {
+                @Override
+                public int getId() {
+                    return id;
+                }
+
+                @Override
+                public PollStateChangeEvent getUpdate() {
+                    return new PollStateChangeEvent(jta, poll);
+                }
+
+            };
         } else if(json.has("poll_answer")) {
             // PollAnswerEvent
             JsonObject object = json.get("poll_answer").getAsJsonObject();
