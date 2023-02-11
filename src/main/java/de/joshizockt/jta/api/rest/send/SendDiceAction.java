@@ -1,9 +1,9 @@
-package de.joshizockt.jta.api.rest;
+package de.joshizockt.jta.api.rest.send;
 
 import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.object.chat.message.DiceMessage;
-import de.joshizockt.jta.api.object.chat.message.Message;
 import de.joshizockt.jta.api.requests.send.SendDiceRequest;
+import de.joshizockt.jta.api.rest.RestAction;
 
 public class SendDiceAction extends RestAction<DiceMessage> {
 

@@ -3,6 +3,7 @@ package de.joshizockt.jta.api.object;
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.object.chat.PrivateChat;
+import de.joshizockt.jta.api.object.chat.message.MessageReceiver;
 import de.joshizockt.jta.api.rest.RestAction;
 import de.joshizockt.jta.api.util.JsonUtil;
 import org.jetbrains.annotations.Nullable;
@@ -60,7 +61,7 @@ public abstract class User extends MessageReceiver {
 
             @Override
             public RestAction<PrivateChat> getChat() {
-                return jta.getPrivateChat(id + "");
+                return jta.getPrivateChat(id);
             }
 
         };

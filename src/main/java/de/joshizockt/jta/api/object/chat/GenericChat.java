@@ -3,7 +3,7 @@ package de.joshizockt.jta.api.object.chat;
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.exception.IllegalChatTypeException;
-import de.joshizockt.jta.api.object.MessageReceiver;
+import de.joshizockt.jta.api.object.chat.message.MessageReceiver;
 import de.joshizockt.jta.api.requests.chat.LeaveChatRequest;
 import de.joshizockt.jta.api.rest.RestAction;
 import de.joshizockt.jta.api.util.JsonUtil;

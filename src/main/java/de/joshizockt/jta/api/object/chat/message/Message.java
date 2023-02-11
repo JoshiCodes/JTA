@@ -6,7 +6,7 @@ import de.joshizockt.jta.api.object.User;
 import de.joshizockt.jta.api.object.chat.GenericChat;
 import de.joshizockt.jta.api.requests.EditMessageTextRequest;
 import de.joshizockt.jta.api.rest.RestAction;
-import de.joshizockt.jta.api.rest.SendMessageAction;
+import de.joshizockt.jta.api.rest.send.SendMessageAction;
 import de.joshizockt.jta.api.util.JsonUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +23,6 @@ public abstract class Message {
         final int chatId = result.get("chat").getAsJsonObject().get("id").getAsInt();
         final RestAction<GenericChat> chat = jta.getChat(chatId);
         final String text = JsonUtil.getOrDefaultString(result, "text", null);
-        if(text == null) return null;
         return new Message() {
             @Override
             public JTA getJTA() {
@@ -62,6 +61,8 @@ public abstract class Message {
 
             @Override
             public String getContent() {
+                if(text == null)
+                    throw new NullPointerException("Message has no content!");
                 return text;
             }
 

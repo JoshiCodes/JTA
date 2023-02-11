@@ -1,8 +1,9 @@
-package de.joshizockt.jta.api.rest;
+package de.joshizockt.jta.api.rest.send;
 
 import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.object.chat.message.Message;
 import de.joshizockt.jta.api.requests.send.SendMessageRequest;
+import de.joshizockt.jta.api.rest.RestAction;
 
 public class SendMessageAction extends RestAction<Message> {
 

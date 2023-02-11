@@ -1,11 +1,11 @@
-package de.joshizockt.jta.api.rest;
+package de.joshizockt.jta.api.rest.send;
 
 import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.object.Poll;
 import de.joshizockt.jta.api.requests.send.SendPollRequest;
+import de.joshizockt.jta.api.rest.RestAction;
 
 import java.util.List;
-import java.util.function.Function;
 
 public class SendPollAction extends RestAction<Poll> {
 
