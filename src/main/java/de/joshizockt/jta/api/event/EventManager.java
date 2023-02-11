@@ -1,6 +1,7 @@
 package de.joshizockt.jta.api.event;
 
 import de.joshizockt.jta.api.JTA;
+import de.joshizockt.jta.api.event.jta.ReadyEvent;
 import de.joshizockt.jta.api.object.IUpdate;
 import de.joshizockt.jta.api.requests.GetUpdatesRequest;
 
@@ -20,6 +21,7 @@ public class EventManager {
     private int offset = 0;
 
     private Thread thread;
+    boolean first = true;
 
     public EventManager(JTA jta, final long sleepTimeout) {
         this.jta = jta;
@@ -31,6 +33,7 @@ public class EventManager {
         if(thread != null) {
             thread.interrupt();
         }
+        first = true;
         thread = new Thread(this::checkForUpdates);
         thread.start();
     }
@@ -39,12 +42,15 @@ public class EventManager {
         GetUpdatesRequest request = new GetUpdatesRequest(jta);
         request.offset(offset);
         List<IUpdate<?>> updates = jta.getRequestHandler().execute(request);
+        if(first && listeners.size() > 0) {
+            fireEvent(new ReadyEvent(jta));
+            first = false;
+        }
         if(updates == null || updates.isEmpty()) {
             sleep();
             checkForUpdates();
             return;
         }
-        System.out.println("update:");
         for (IUpdate<?> update : updates) {
             int id = update.getId();
             if(id > offset) {
