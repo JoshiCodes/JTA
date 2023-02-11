@@ -7,7 +7,7 @@ import de.joshizockt.jta.api.event.chat.message.MessageReceivedEvent;
 import de.joshizockt.jta.api.event.poll.PollAnswerEvent;
 import de.joshizockt.jta.api.event.poll.PollStateChangeEvent;
 import de.joshizockt.jta.api.object.IUpdate;
-import de.joshizockt.jta.api.object.Message;
+import de.joshizockt.jta.api.object.chat.message.Message;
 import de.joshizockt.jta.api.object.Poll;
 import de.joshizockt.jta.api.object.User;
 

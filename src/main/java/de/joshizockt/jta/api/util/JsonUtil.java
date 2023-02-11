@@ -37,6 +37,9 @@ public class JsonUtil {
     }
 
     public static JsonObject addObject(JsonObject json, String key, Object object) {
+        if(object == null) {
+            return json;
+        }
         if(object instanceof JsonElement) {
             json.add(key, (JsonElement) object);
         } else if(object instanceof String) {

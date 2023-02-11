@@ -3,7 +3,6 @@ package de.joshizockt.jta.api.requests.send;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
-import de.joshizockt.jta.api.object.Message;
 import de.joshizockt.jta.api.object.Poll;
 import de.joshizockt.jta.api.requests.Request;
 

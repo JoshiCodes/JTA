@@ -1,9 +1,7 @@
 package de.joshizockt.jta.api.object;
 
 import de.joshizockt.jta.api.JTA;
-import de.joshizockt.jta.api.object.Message;
-import de.joshizockt.jta.api.requests.send.SendMessageRequest;
-import de.joshizockt.jta.api.rest.RestAction;
+import de.joshizockt.jta.api.rest.SendDiceAction;
 import de.joshizockt.jta.api.rest.SendMessageAction;
 import de.joshizockt.jta.api.rest.SendPollAction;
 
@@ -32,6 +30,14 @@ public abstract class MessageReceiver {
 
     public SendPollAction sendPoll(final String question, final String... options) {
         return new SendPollAction(jta, id).setQuestion(question).setOptions(Arrays.asList(options));
+    }
+
+    public SendDiceAction sendDice() {
+        return new SendDiceAction(jta).setChatId(id);
+    }
+
+    public SendDiceAction sendDice(String emoji) {
+        return sendDice().setEmoji(emoji);
     }
 
 }

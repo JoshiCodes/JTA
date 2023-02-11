@@ -2,7 +2,7 @@ package de.joshizockt.jta.api.requests;
 
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
-import de.joshizockt.jta.api.object.Message;
+import de.joshizockt.jta.api.object.chat.message.Message;
 
 public class EditMessageTextRequest extends Request<Message> {
 

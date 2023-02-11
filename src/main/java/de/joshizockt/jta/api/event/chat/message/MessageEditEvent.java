@@ -2,7 +2,7 @@ package de.joshizockt.jta.api.event.chat.message;
 
 import de.joshizockt.jta.api.JTA;
 import de.joshizockt.jta.api.event.Event;
-import de.joshizockt.jta.api.object.Message;
+import de.joshizockt.jta.api.object.chat.message.Message;
 import de.joshizockt.jta.api.object.User;
 import de.joshizockt.jta.api.object.chat.GenericChat;
 import de.joshizockt.jta.api.rest.RestAction;

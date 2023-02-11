@@ -2,7 +2,7 @@ package de.joshizockt.jta.api.object.chat;
 
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
-import de.joshizockt.jta.api.object.Message;
+import de.joshizockt.jta.api.object.chat.message.Message;
 import de.joshizockt.jta.api.util.JsonUtil;
 import org.jetbrains.annotations.Nullable;
 

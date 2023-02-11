@@ -1,10 +1,10 @@
-package de.joshizockt.jta.api.object;
+package de.joshizockt.jta.api.object.chat.message;
 
 import com.google.gson.JsonObject;
 import de.joshizockt.jta.api.JTA;
+import de.joshizockt.jta.api.object.User;
 import de.joshizockt.jta.api.object.chat.GenericChat;
 import de.joshizockt.jta.api.requests.EditMessageTextRequest;
-import de.joshizockt.jta.api.requests.send.SendMessageRequest;
 import de.joshizockt.jta.api.rest.RestAction;
 import de.joshizockt.jta.api.rest.SendMessageAction;
 import de.joshizockt.jta.api.util.JsonUtil;
