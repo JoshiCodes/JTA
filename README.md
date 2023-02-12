@@ -119,5 +119,31 @@ At the moment, the following Events are supported:
 
 - `MessageReceivedEvent`
 - `MessageEditedEvent`
+- `ReadyEvent`
 
 It is planned to add most of the Telegram Updates as Events.
+
+
+## Sending Files
+At the Moment you can only send Photos (sendPhoto Telegram Method) with the API.
+You can do this by using the `Chat#sendPhoto(File file)` Method.
+
+```java
+    // Send a Photo from a File
+    chat.sendPhoto(new File("path/to/file")).queue();
+    
+    // Send a Photo from a File and set another File Name
+    chat.sendPhoto(InputFile.of("image.png", new File("path/to/file"))).queue();
+
+    // Send a Photo from a URL
+    chat.sendPhoto("https://example.com/image.png").queue();
+    
+    // Send a Photo from a File and add a Caption
+    chat.sendPhoto(new File("path/to/file"), "This is a Caption").queue();
+
+    // Send a Photo from a File and set another File Name and add a Caption
+    chat.sendPhoto(InputFile.of("image.png", new File("path/to/file")), "This is a Caption").queue();
+    
+    // Send a Photo from a URL and add a Caption
+    chat.sendPhoto("https://example.com/image.png", "This is a Caption").queue();
+```

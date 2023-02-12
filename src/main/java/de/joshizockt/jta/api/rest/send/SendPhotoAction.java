@@ -19,6 +19,8 @@ public class SendPhotoAction extends RestAction<Message> {
     private String externalPhoto;
     private InputFile internalPhoto;
 
+    private String caption;
+
     public SendPhotoAction(JTA jta, int chatId) {
         super(null);
         this.jta = jta;
@@ -55,11 +57,19 @@ public class SendPhotoAction extends RestAction<Message> {
        return setPhoto(InputFile.of(photo));
     }
 
+    public SendPhotoAction setCaption(String caption) {
+        this.caption = caption;
+        return this;
+    }
+
     @Override
     public Message complete() {
         SendPhotoRequest request = new SendPhotoRequest(jta, chatId);
         if(externalPhoto != null && internalPhoto == null)
             request.setPhoto(externalPhoto);
+
+        if(caption != null)
+            request.setCaption(caption);
 
         if(internalPhoto != null) {
             return jta.getRequestHandler().executeWithFile(request, "photo", internalPhoto);

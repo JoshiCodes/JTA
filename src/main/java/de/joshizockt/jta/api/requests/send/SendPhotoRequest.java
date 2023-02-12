@@ -20,6 +20,11 @@ public class SendPhotoRequest extends Request<Message> {
         return this;
     }
 
+    public SendPhotoRequest setCaption(String caption) {
+        addData("caption", caption);
+        return this;
+    }
+
     @Override
     public Message parse(JsonObject jsonObject) {
         return Message.fromJson(jta, jsonObject.get("result").getAsJsonObject());

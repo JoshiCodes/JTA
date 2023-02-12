@@ -53,6 +53,16 @@ public abstract class MessageReceiver {
     }
 
     /**
+     * Sends a local photo with the given caption to this receiver
+     * @param photo the photo to send
+     * @param caption the caption of the photo
+     * @return the action to execute
+     */
+    public SendPhotoAction sendPhoto(File photo, String caption) {
+        return sendPhoto(photo).setCaption(caption);
+    }
+
+    /**
      * Sends a photo to this receiver
      * @param photo the photo to send
      * @return the action to execute
@@ -62,12 +72,32 @@ public abstract class MessageReceiver {
     }
 
     /**
+     * Sends a local photo with the given caption to this receiver
+     * @param photo the photo to send
+     * @param caption the caption of the photo
+     * @return the action to execute
+     */
+    public SendPhotoAction sendPhoto(InputFile photo, String caption) {
+        return sendPhoto(photo).setCaption(caption);
+    }
+
+    /**
      * Sends a photo to this receiver
      * @param url the url of the photo or the file_id of a photo that is already on Telegram's servers
      * @return the action to execute
      */
     public SendPhotoAction sendPhoto(String url) {
         return new SendPhotoAction(jta, id).setPhoto(url);
+    }
+
+    /**
+     * Sends a local photo with the given caption to this receiver
+     * @param photo the photo to send
+     * @param caption the caption of the photo
+     * @return the action to execute
+     */
+    public SendPhotoAction sendPhoto(String url, String caption) {
+        return sendPhoto(url).setCaption(caption);
     }
 
 }
